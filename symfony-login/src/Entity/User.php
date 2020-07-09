@@ -36,4 +36,25 @@ class User
     {
         return $this->id;
     }
+
+    public function getUsername(){
+        return $this->username;
+    }
+    public function setUsername($username){
+        $this->username = $username;
+    }
+
+    public function getPassword(){
+        return $this->password;
+    }
+    public function setPassword($password){
+        $this->password = $password;
+    }
+
+    public function getEmpId(){
+        return $this->emp_id;
+    }
+    public function setEmpId($empId){
+        $this->emp_id = $empId;
+    }
 }
