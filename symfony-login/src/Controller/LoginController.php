@@ -64,10 +64,25 @@ class LoginController extends AbstractFOSRestController
         $employee->setLastname('Wagner');
         $employee->setAddress('No:54,river avenue,petersburg');
 
+        $employee2 = new Employee();
+        $employee2->setFirstname('James');
+        $employee2->setLastname('Potter');
+        $employee2->setAddress('No:54,Godric hallows,petersburg');
+
+        $employee1 = new Employee();
+        $employee1->setFirstname('Sherlock');
+        $employee1->setLastname('Holms');
+        $employee1->setAddress('No:221B, Backers street, London');
+
         $entityManager->persist($employee);
         $entityManager->flush();
 
-        return new Response('saves an employee with the id of '.$employee->getId());
+        $entityManager->persist($employee1);
+        $entityManager->flush();
+
+        $entityManager->persist($employee2);
+        $entityManager->flush();
+        return new Response('saves an employees with the id of '.$employee->getId()." " .$employee1->getId()." " .$employee2->getId());
     }
 
     /**
@@ -78,13 +93,26 @@ class LoginController extends AbstractFOSRestController
         $entityManager = $this->getDoctrine()->getManager();
 
         $user = new User();
-        $user->setUsername('DavidPeter');
-        $user->setPassword('DavidPassword');
+        $user->setUsername('ShanWagner');
+        $user->setPassword('Pass123');
         $user->setEmpId(1);
-
         $entityManager->persist($user);
         $entityManager->flush();
 
-        return new Response('saves a user with the id of '.$user->getId());
+        $user2 = new User();
+        $user2->setUsername('JamesPotter');
+        $user2->setPassword('JamesPassword');
+        $user2->setEmpId(2);
+        $entityManager->persist($user2);
+        $entityManager->flush();
+
+        $user3 = new User();
+        $user3->setUsername('SherLock');
+        $user3->setPassword('sherLocked');
+        $user3->setEmpId(3);
+        $entityManager->persist($user3);
+        $entityManager->flush();
+
+        return new Response('Databse successfully updates');
     }
 }
