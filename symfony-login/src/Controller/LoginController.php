@@ -32,7 +32,7 @@ class LoginController extends AbstractFOSRestController
     {
         $data = json_decode($request->getContent(), true);
         $user = $this->getDoctrine()->getRepository
-        (User::class)->findOneBy(array('username'=>$data['username'],'password'=>$data['password']));
+        (User::class)->findOneBy(array('username'=>$data['username'],'password'=>md5($data['password'])));
         if($user){
             // $a=json_decode($user->getData(), true);
             return $user->getEmpId();
@@ -94,21 +94,21 @@ class LoginController extends AbstractFOSRestController
 
         $user = new User();
         $user->setUsername('ShanWagner');
-        $user->setPassword('Pass123');
+        $user->setPassword(md5('Pass123'));//password encrption with MD5 hashing
         $user->setEmpId(1);
         $entityManager->persist($user);
         $entityManager->flush();
 
         $user2 = new User();
         $user2->setUsername('JamesPotter');
-        $user2->setPassword('JamesPassword');
+        $user2->setPassword(md5('JamesPassword'));
         $user2->setEmpId(2);
         $entityManager->persist($user2);
         $entityManager->flush();
 
         $user3 = new User();
         $user3->setUsername('SherLock');
-        $user3->setPassword('sherLocked');
+        $user3->setPassword(md5('sherLocked'));
         $user3->setEmpId(3);
         $entityManager->persist($user3);
         $entityManager->flush();

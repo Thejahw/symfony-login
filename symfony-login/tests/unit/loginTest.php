@@ -29,7 +29,7 @@ class loginTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('David', $client->getResponse()->getContent());
-        $this->assertStringContainsString('peter', $client->getResponse()->getContent());
+        $this->assertStringContainsString('peter', $client->getResponse()->getContent());   
     }
 
     // test a successfull login
