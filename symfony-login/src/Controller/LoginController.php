@@ -31,13 +31,15 @@ class LoginController extends AbstractFOSRestController
     public function login(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-        // $programmer = new Programmer($data['nickname'], $data['avatarNumber']);
-        // $programmer->setTagLine($data['tagLine']);
-
-        return $data['username'];
+        $user = $this->getDoctrine()->getRepository
+        (User::class)->findOneBy(array('username'=>$data['username'],'password'=>$data['password']));
+        if($user){
+            // $a=json_decode($user->getData(), true);
+            return $user->getEmpId();
+        }else{
+            return null;
+        }
     }
-
-
 
     /**
      * @Rest\Get("/employee/{id}")
@@ -66,7 +68,6 @@ class LoginController extends AbstractFOSRestController
         $entityManager->flush();
 
         return new Response('saves an employee with the id of '.$employee->getId());
-
     }
 
     /**
@@ -85,6 +86,5 @@ class LoginController extends AbstractFOSRestController
         $entityManager->flush();
 
         return new Response('saves a user with the id of '.$user->getId());
-
     }
 }
